@@ -49,7 +49,7 @@ function average_color(imagedata)
     return {ar / s, ag / s, ab / s}
 end
 
-local raw_stats = json:decode(love.filesystem.read("all/all_stats.json"))
+local raw_stats = json:decode(love.filesystem.read("all_stats.json"))
 
 local names = {}
 local avg_pos = {}

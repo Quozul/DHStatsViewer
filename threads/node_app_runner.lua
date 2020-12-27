@@ -90,6 +90,6 @@ for day, value in spairs(output) do
     previous_index = day
 end
 
-love.filesystem.write("all/all_stats.json", json:encode(output))
+love.filesystem.write("all_stats.json", json:encode(output))
 
 love.thread.getChannel( "channel" ):push( {tex = "Terminé!", bars = false, fadeout = true} )
