@@ -17,7 +17,7 @@ function dht:filedropped(file)
         local filename = file:getFilename()
         print("File dropped")
         thread:start( filename, channel )
-        thread_avatars:start( filename )
+        --thread_avatars:start( filename )
         loading.setvalue({bars = true})
     else
         print("Can't drop file, a file is already being analyzed")
@@ -25,7 +25,7 @@ function dht:filedropped(file)
 end
 
 function dht:keypressed(key)
-    if not thread:isRunning() then
+    if not thread:isRunning() and key == "escape" then
         gamestate.switch(previous_gs)
     end
 end
@@ -42,7 +42,7 @@ end
 function dht:draw()
     loading.draw()
     if not thread:isRunning() then
-        love.graphics.print("Appuyez sur n'importe quelle touche pour revenir en arrière.")
+        love.graphics.print("Appuyez sur echap pour revenir en arrière.")
     else
         love.graphics.print("Attendez la fin de l'analyse.")
     end

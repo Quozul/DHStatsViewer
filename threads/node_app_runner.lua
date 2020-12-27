@@ -13,24 +13,23 @@ local function spairs(t, order)
 end
 
 local dht_file, channel = ...
-local output_dir = love.filesystem.getSaveDirectory()
 
 print("Input file: " .. dht_file)
-print("Output directory: " .. output_dir)
 
 love.thread.getChannel( "channel" ):push( {tex = "Ouverture du fichier...", per = 12.5} )
-
+print("Opening file...")
 local file = io.open(dht_file, "r")
 
 love.thread.getChannel( "channel" ):push( {tex = "Lecture du fichier...", per = 25} )
-
+print("Reading file...")
 local content = io.open(dht_file, "r"):read()
 
 love.thread.getChannel( "channel" ):push( {tex = "Décodage du fichier...", per = 37.5} )
-
+print("Decoding file...")
 local dht = json:decode(content)
 
 love.thread.getChannel( "channel" ):push( {tex = "Analyse du fichier...", per = 50} )
+print("Analysing file...")
 
 local result = {}
 local i = 0
@@ -39,6 +38,7 @@ local i = 0
 -- Count messages (per day)
 for channel_id, messages in pairs(dht.data) do
     local channel_name = dht.meta.channels[channel_id].name
+    print("Channel: " .. channel_name)
     
     for message_id, message in pairs(messages) do
         local x = date(message.t / 1000 + (3600 * 2)):fmt("%Y/%m/%d")
@@ -58,16 +58,16 @@ for channel_id, messages in pairs(dht.data) do
     love.thread.getChannel( "channel" ):push( {tex = "Analyse du fichier...", per = 50 + (i / #dht.data)} )
 end
 
-print(result)
-
 local output = {}
 
 -- Sort messages
+print("Sorting...")
 for day, value in spairs(result) do
     output[day] = value
 end
 
 -- Sum messages
+print("Summing...")
 local previous_index
 for day, value in spairs(output) do
     if previous_index ~= nil then
@@ -88,6 +88,8 @@ for day, value in spairs(output) do
     previous_index = day
 end
 
+print("Saving...")
 love.filesystem.write("all_stats.json", json:encode(output))
 
+print("Done!")
 love.thread.getChannel( "channel" ):push( {tex = "Terminé!", bars = false, fadeout = true} )
