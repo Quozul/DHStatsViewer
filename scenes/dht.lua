@@ -22,7 +22,11 @@ function dht:filedropped(file)
     end
 end
 
-function dht:keypressed(key) gamestate.switch(previous_gs) end
+function dht:keypressed(key)
+    if not thread:isRunning() then
+        gamestate.switch(previous_gs)
+    end
+end
 
 function dht:update(dt)
     loading.update(dt)
@@ -35,7 +39,11 @@ end
 
 function dht:draw()
     loading.draw()
-    love.graphics.print("Appuyez sur n'importe quelle touche pour revenir en arrière.")
+    if not thread:isRunning() then
+        love.graphics.print("Appuyez sur n'importe quelle touche pour revenir en arrière.")
+    else
+        love.graphics.print("Attendez la fin de l'analyse.")
+    end
 end
 
 return dht
