@@ -111,11 +111,11 @@ end
 function bars:keypressed(key, scancode, isrepeat)
     if key == "right" then
         play = false
-        fake_index = fake_index + 1
+        fake_index = math.min(fake_index + 1, stats_len)
         cooldown = 1
     elseif key == "left" then
         play = false
-        fake_index = fake_index - 1
+        fake_index = math.max(fake_index - 1, 1)
         cooldown = 1
     end
 
@@ -199,6 +199,14 @@ function bars:mousepressed(mx, my, button)
     local y = window_height - 16
 
     if not knob_selected and mx > x - 8 and x + 8 > mx and my > y - 8 and y + 8 > my then
+        knob_selected = true
+        play = false
+    elseif mx > 0 and window_width > mx and my > y - 8 and y + 8 > my then
+        local px_d = stats_len / (window_width - 32)
+        local dx = mx - x -- mouse from knob
+
+        fake_index = math.min(math.max(fake_index + px_d * dx, 1), stats_len)
+
         knob_selected = true
         play = false
     end
