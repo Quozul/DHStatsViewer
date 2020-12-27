@@ -3,10 +3,11 @@ local dht = {}
 local loading = require("libs/loading_screen")
 loading.init()
 
-local thread, channel
+local thread, channel, thread_avatars
 function dht:enter(previous)
     previous_gs = previous
     thread = love.thread.newThread( "threads/node_app_runner.lua" )
+    thread_avatars = love.thread.newThread( "threads/avatar_from_dht.lua" )
     channel = love.thread.newChannel()
     loading.setvalue({tex = "Déposez votre historique de conversation", per = 0, bars = false})
 end
@@ -16,6 +17,7 @@ function dht:filedropped(file)
         local filename = file:getFilename()
         print("File dropped")
         thread:start( filename, channel )
+        thread_avatars:start( filename )
         loading.setvalue({bars = true})
     else
         print("Can't drop file, a file is already being analyzed")

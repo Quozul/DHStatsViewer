@@ -32,8 +32,6 @@ local dht = json:decode(content)
 
 love.thread.getChannel( "channel" ):push( {tex = "Analyse du fichier...", per = 50} )
 
-love.filesystem.createDirectory("users")
-
 local result = {}
 local i = 0
 
