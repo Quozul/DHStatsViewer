@@ -226,6 +226,7 @@ end
 
 function bars:draw()
     if not stats or not stats[index] then return end
+    local mx, my = love.mouse.getPosition()
 
     for name, user in spairs(stats[index].positions, function(t,a,b) return t[b][value_to_see] > t[a][value_to_see] end) do -- change here for position
         local highest = local_highest and global_highest or stats[index].highest
@@ -263,6 +264,13 @@ function bars:draw()
         if y < max_height + height and bars_top < y then
             -- calculate brightness
             local brightness = 0.2126*colors[name][1] + 0.7152*colors[name][2] + 0.0722*colors[name][3]
+            
+            -- draw background on hover
+            if my > y and y + height > my and not knob_selected then
+                love.graphics.setColor(colors[name][1] * 1.5, colors[name][2] * 1.5, colors[name][3] * 1.5)
+                love.graphics.rectangle("fill", height, y, window_width - height, height, 2)
+            end
+
             -- draw bars
             love.graphics.setColor(colors[name])
             love.graphics.rectangle("fill", height, y, width * max_width, height, 2)
