@@ -51,9 +51,6 @@ end
 
 local raw_stats = json:decode(love.filesystem.read("all/all_stats.json"))
 
-local previous = {}
-local pre_highest = 0
-local pre_pos = {}
 local names = {}
 local avg_pos = {}
 local stats, avatars, colors = {}, {}, {}
@@ -81,11 +78,6 @@ for k,v in spairs(raw_stats) do
     for name, msg in spairs(v) do
         positions[name] = {msg = 0, days = 1, total = msg}
         total = total + msg
-
-        if pre_pos[name] then
-            positions[name].days = pre_pos[name].days + 1
-            positions[name].msg = msg - pre_pos[name].total
-        end
 
         -- get total for list 5 days
         local delta = raw_stats[k][name] - (raw_stats[inversed_indexes[math.max(indexes[k]-close_total_span, 1)]][name] or 0)
@@ -125,10 +117,7 @@ for k,v in spairs(raw_stats) do
         positions[name].avg_pos = avg / total
     end
 
-    table.insert( stats, {date = k, total = total, highest = highest, pre_highest = pre_highest, positions = positions, pre_pos = pre_pos} )
-
-    pre_highest = highest
-    pre_pos = positions
+    table.insert( stats, {date = k, total = total, highest = highest, positions = positions} )
 
     love.thread.getChannel( "info_channel" ):push({per = indexes[k] / total_days * 100})
     --print(indexes[k] / total_days * 100 .. "%")
