@@ -100,7 +100,8 @@ function bars:update(dt)
     if cooldown >= 1 / days_per_secs then
         if dir then fake_index = fake_index + 1
         else fake_index = fake_index - 1 end
-        cooldown = 0
+        cooldown = cooldown - 1 / days_per_secs
+        index = round(fake_index)
     end
 
     if index >= stats_len then
@@ -237,7 +238,7 @@ function bars:draw()
         local y = pos * (height + height / 8) + bars_top
         local msgs_amount = value
         local avg_pos = user.avg_pos
-        local avg_pos_y = avg_pos * (height + height / 8) + bars_top
+        --local avg_pos_y = avg_pos * (height + height / 8) + bars_top
 
         -- calculate animation
         if play and animate and stats[index - 1] ~= nil then
@@ -254,8 +255,8 @@ function bars:draw()
                 pre_per = pre_value / stats[index - 1].highest
                 msgs_amount = round(linear(cooldown, pre_value, value - pre_value, 1 / days_per_secs))
 
-                local pre_avg_pos_y = pre.avg_pos * (height + height / 8) + bars_top
-                avg_pos_y = inOutSine(cooldown, pre_avg_pos_y, avg_pos_y - pre_avg_pos_y, 1 / days_per_secs)
+                --local pre_avg_pos_y = pre.avg_pos * (height + height / 8) + bars_top
+                --avg_pos_y = linear(cooldown, pre_avg_pos_y, avg_pos_y - pre_avg_pos_y, 1 / days_per_secs)
             end
             
             width = linear(cooldown, pre_per, per - pre_per, 1 / days_per_secs)
