@@ -240,8 +240,8 @@ function bars:draw()
         local avg_pos_y = avg_pos * (height + height / 8) + bars_top
 
         -- calculate animation
-        if play and animate then
-            local pre = stats[index].pre_pos[name]
+        if play and animate and stats[index - 1] ~= nil then
+            local pre = stats[index - 1].positions[name]
             local pre_per = 0
             
             if pre then
@@ -251,7 +251,7 @@ function bars:draw()
                 end
 
                 local pre_value = pre[value_to_see] -- change here for value
-                pre_per = pre_value / stats[index].pre_highest
+                pre_per = pre_value / stats[index - 1].highest
                 msgs_amount = round(linear(cooldown, pre_value, value - pre_value, 1 / days_per_secs))
 
                 local pre_avg_pos_y = pre.avg_pos * (height + height / 8) + bars_top

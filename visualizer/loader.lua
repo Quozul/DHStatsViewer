@@ -39,6 +39,7 @@ function stats_loader:update(dt)
         local names = done.names
 
         loading.setvalue({tex = "Loading avatars..."})
+        print("Loading avatars...")
         local total_avatars = table.length(names)
         -- load avatars
         for k,v in pairs(names) do
