@@ -27,7 +27,7 @@ function menu:enter(previous)
     }
     ]]
     buttons.add_discord_dht = {
-        x = w / 2 + 10,
+        x = 10,
         y = 10,
         w = w / 2 - 20,
         h = (h / 3) * 2 - 20,
@@ -39,10 +39,10 @@ function menu:enter(previous)
         hover_time = 0
     }
     buttons.read_current = {
-        x = 10,
-        y = (h / 3) * 2 + 10,
-        w = w / 3 * 2 - 20,
-        h = h / 3 - 20,
+        x = w / 2 + 10,
+        y = 10,
+        w = w / 2 - 20,
+        h = (h / 3) * 2 - 20,
         click = function() gamestate.switch(vis_menu) end,
         text = "Lire les statistiques actuelles",
         color = {0, 1, 0},
@@ -50,10 +50,22 @@ function menu:enter(previous)
         hover = false,
         hover_time = 0
     }
-    buttons.share = {
-        x = w / 3 * 2 + 10,
+    buttons.clean_avatar_cache = {
+        x = 10,
         y = (h / 3) * 2 + 10,
-        w = w / 3 - 20,
+        w = w / 2 - 20,
+        h = h / 3 - 20,
+        click = function() love.filesystem.remove("avatars") end,
+        text = "Effacer les avatars téléchargés",
+        color = {1, 0, 0},
+        hover_text = "Supprime les avatars téléchargés, permet de les télécharger à nouveau.",
+        hover = false,
+        hover_time = 0
+    }
+    buttons.share = {
+        x = w / 2 + 10,
+        y = (h / 3) * 2 + 10,
+        w = w / 2 - 20,
         h = h / 3 - 20,
         click = function()
             love.system.openURL("file://" .. love.filesystem.getSaveDirectory())
