@@ -50,7 +50,7 @@ function menu:enter(previous)
         hover = false,
         hover_time = 0
     }
-    buttons.clean_avatar_cache = {
+    --[[buttons.clean_avatar_cache = {
         x = 10,
         y = (h / 3) * 2 + 10,
         w = w / 2 - 20,
@@ -61,7 +61,7 @@ function menu:enter(previous)
         hover_text = "Supprime les avatars téléchargés, permet de les télécharger à nouveau.",
         hover = false,
         hover_time = 0
-    }
+    }]]
     buttons.share = {
         x = w / 2 + 10,
         y = (h / 3) * 2 + 10,
