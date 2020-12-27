@@ -93,6 +93,12 @@ function bars:update(dt)
         end
     end
 
+    if knob_selected then
+        love.mouse.setGrabbed(true)
+    else
+        love.mouse.setGrabbed(false)
+    end
+
     if not stats[index] or not play then return end
 
     cooldown = cooldown + dt
