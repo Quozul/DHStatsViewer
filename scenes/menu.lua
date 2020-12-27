@@ -12,6 +12,7 @@ local max_hover_time = 1
 
 function menu:enter(previous)
     local w, h = love.graphics.getDimensions()
+    --[[
     buttons.add_discord_package = {
         x = 10,
         y = 10,
@@ -24,6 +25,7 @@ function menu:enter(previous)
         hover = false,
         hover_time = 0
     }
+    ]]
     buttons.add_discord_dht = {
         x = w / 2 + 10,
         y = 10,
