@@ -1,4 +1,4 @@
-local buttons = {}
+local buttons, previous_gs = {}
 local menu = {}
 
 require("libs/utils")
@@ -21,13 +21,15 @@ local value_to_see_descriptions = {
 local w, h
 
 function menu:enter(previous, stats, avatars, colors, v)
+    previous_gs = previous
+
     w, h = love.graphics.getDimensions()
     value_to_see = v
     buttons.points = {
         x = 10,
-        y = 10,
+        y = 110,
         w = w / 2 - 20,
-        h = h - 20,
+        h = h - 120,
         click = function() gamestate.switch(points, stats, avatars, colors, value_to_see) end,
         text = "Courbes dynamiques",
         color = {0, 0, 255},
@@ -37,11 +39,23 @@ function menu:enter(previous, stats, avatars, colors, v)
     }
     buttons.bars = {
         x = w / 2 + 10,
-        y = 10,
+        y = 110,
         w = w / 2 - 20,
-        h = h - 20,
+        h = h - 120,
         click = function() gamestate.switch(bars, stats, avatars, colors, value_to_see) end,
         text = "Barres dynamiques",
+        color = {0, 0, 255},
+        hover_text = "",
+        hover = false,
+        hover_time = 0
+    }
+    buttons.back = {
+        x = 10,
+        y = 10,
+        w = w - 20,
+        h = 90,
+        click = function() gamestate.switch(require("scenes.menu")) end,
+        text = "Menu principal",
         color = {0, 0, 255},
         hover_text = "",
         hover = false,
