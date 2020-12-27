@@ -227,16 +227,6 @@ end
 function bars:draw()
     if not stats or not stats[index] then return end
 
-    local sign = ""
-    if not dir then sign = "-" end
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.print("Jour: " .. index .. " Fake index: " .. fake_index .. " " .. sign .. days_per_secs .. " jours/secondes", 0, 0)
-    love.graphics.print("Messages totaux: " .. stats[index].total .. " " .. round(stats[index].total / index) .. " messages/jours", 0, 15)
-    love.graphics.print(love.timer.getFPS() .. " fps Scroll: " .. math.abs(scroll), 0, 30)
-
-    date_str:set(stats[index].date)
-    love.graphics.draw(date_str, max_width + height - date_str:getWidth() - 10, 10)
-
     for name, user in spairs(stats[index].positions, function(t,a,b) return t[b][value_to_see] > t[a][value_to_see] end) do -- change here for position
         local highest = local_highest and global_highest or stats[index].highest
         local value = user[value_to_see] -- change here for value
@@ -270,9 +260,10 @@ function bars:draw()
             width = linear(cooldown, pre_per, per - pre_per, 1 / days_per_secs)
         end
         
-        if y < max_height and bars_top < y then
-            -- draw bars
+        if y < max_height + height and bars_top < y then
+            -- calculate brightness
             local brightness = 0.2126*colors[name][1] + 0.7152*colors[name][2] + 0.0722*colors[name][3]
+            -- draw bars
             love.graphics.setColor(colors[name])
             love.graphics.rectangle("fill", height, y, width * max_width, height, 2)
 
@@ -324,12 +315,28 @@ function bars:draw()
     local total_seconds = round(total_time % 60)
     local total_minutes = round((total_time - total_seconds) / 60)
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(.1, .1, .1)
+    love.graphics.rectangle("fill", 0, window_height - 48, window_width, 48) -- background
+
+    love.graphics.setColor(1, 1, 1)
     love.graphics.line(16, window_height - 16, window_width - 16, window_height - 16)
     love.graphics.circle("fill", x + 16, window_height - 16, 8)
 
     local play_time = string.format("%02d:%02d/%02d:%02d", played_minutes, played_seconds, total_minutes, total_seconds)
     love.graphics.print(play_time, 16, window_height - 32)
+
+    -- top informations
+    love.graphics.setColor(.1, .1, .1)
+    love.graphics.rectangle("fill", 0, 0, window_width, 45) -- background
+    local sign = ""
+    if not dir then sign = "-" end
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print("Jour: " .. index .. " Fake index: " .. fake_index .. " " .. sign .. days_per_secs .. " jours/secondes", 0, 0)
+    love.graphics.print("Messages totaux: " .. stats[index].total .. " " .. round(stats[index].total / index) .. " messages/jours", 0, 15)
+    love.graphics.print(love.timer.getFPS() .. " fps Scroll: " .. math.abs(scroll), 0, 30)
+
+    date_str:set(stats[index].date)
+    love.graphics.draw(date_str, max_width + height - date_str:getWidth() - 10, 10)
 end
 
 return bars
