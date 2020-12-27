@@ -1,5 +1,6 @@
 local buttons = {}
 local menu = {}
+local previous_gs
 
 require("libs/utils")
 local loader = require("visualizer.loader")
@@ -20,6 +21,8 @@ local value_to_see_descriptions = {
 local w, h
 
 function menu:enter(previous, stats, avatars, colors)
+    previous_gs = previous
+
     w, h = love.graphics.getDimensions()
     buttons.avg = {
         x = 10,
@@ -94,6 +97,10 @@ function menu:mousemoved(x, y, dx, dy, istouch)
             v.hover = false
         end
     end
+end
+
+function menu:keypressed(key)
+    gamestate.switch(previous_gs)
 end
 
 function menu:draw()
