@@ -12,10 +12,10 @@ local stats = {}
 
 local value_to_see = "avg"
 local value_to_see_descriptions = {
-    avg = "Moyenne de messages envoyés par jours",
-    msg = "Messages envoyés ce jour",
-    total = "Messages totaux envoyés",
-    days = "Jours de parole"
+    avg = "Average messages sent by day",
+    msg = "Messages sent this day",
+    total = "Total sent messages",
+    days = "Days talking"
 }
 
 local w, h
@@ -33,9 +33,9 @@ function menu:enter(previous, stats, avatars, colors)
             value_to_see = "avg"
             gamestate.switch(loader, "avg")
         end,
-        text = "Moyenne de messages",
+        text = "Average messages sent",
         color = {0, 255, 0},
-        hover_text = "Moyenne de messages envoyés par jours",
+        hover_text = "",
         hover = false,
         hover_time = 0
     }
@@ -48,9 +48,9 @@ function menu:enter(previous, stats, avatars, colors)
             value_to_see = "close_avg"
             gamestate.switch(loader, "close_avg")
         end,
-        text = "Moyenne de messages récente",
+        text = "Sliding average",
         color = {0, 255, 0},
-        hover_text = "Moyenne de messages envoyés par jours sur les 5 derniers jours",
+        hover_text = "",
         hover = false,
         hover_time = 0
     }
@@ -63,9 +63,9 @@ function menu:enter(previous, stats, avatars, colors)
             value_to_see = "total"
             gamestate.switch(loader, "total")
         end,
-        text = "Messages totaux",
+        text = "Total messages sent",
         color = {0, 255, 0},
-        hover_text = "Nombre de messages totaux envoyés",
+        hover_text = "",
         hover = false,
         hover_time = 0
     }

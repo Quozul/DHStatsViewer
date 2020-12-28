@@ -9,7 +9,7 @@ function dht:enter(previous)
     thread = love.thread.newThread( "threads/dht_to_stats.lua" )
     thread_avatars = love.thread.newThread( "threads/avatar_from_dht.lua" )
     channel = love.thread.newChannel()
-    loading.setvalue({tex = "Déposez votre historique de conversation", per = 0, bars = false})
+    loading.setvalue({tex = "Drag-drop your DHT file in the window", per = 0, bars = false})
 end
 
 function dht:filedropped(file)
@@ -42,9 +42,9 @@ end
 function dht:draw()
     loading.draw()
     if not thread:isRunning() then
-        love.graphics.print("Appuyez sur echap pour revenir en arrière.")
+        love.graphics.print("Press escape to go back.")
     else
-        love.graphics.print("Attendez la fin de l'analyse.")
+        love.graphics.print("Wait for analyse to end.")
     end
 end
 

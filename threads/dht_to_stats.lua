@@ -18,19 +18,19 @@ local dht_file, channel = ...
 
 print("Input file: " .. dht_file)
 
-love.thread.getChannel( "channel" ):push( {tex = "Ouverture du fichier...", per = 12.5} )
+love.thread.getChannel( "channel" ):push( {tex = "Opening file...", per = 12.5} )
 print("Opening file...")
 local file = io.open(dht_file, "rb")
 
-love.thread.getChannel( "channel" ):push( {tex = "Lecture du fichier...", per = 25} )
+love.thread.getChannel( "channel" ):push( {tex = "Reading file...", per = 25} )
 print("Reading file...")
 local content = file:read()
 
-love.thread.getChannel( "channel" ):push( {tex = "Décodage du fichier...", per = 37.5} )
+love.thread.getChannel( "channel" ):push( {tex = "Decoding file...", per = 37.5} )
 print("Decoding file...")
 local dht = json.decode(content)
 
-love.thread.getChannel( "channel" ):push( {tex = "Analyse du fichier...", per = 50} )
+love.thread.getChannel( "channel" ):push( {tex = "Analysing file...", per = 50} )
 print("Analysing file...")
 
 local result = {}
@@ -57,7 +57,7 @@ for channel_id, messages in pairs(dht.data) do
     end
 
     i = i + 1
-    love.thread.getChannel( "channel" ):push( {tex = "Analyse du fichier...", per = 50 + (i / #dht.data)} )
+    love.thread.getChannel( "channel" ):push( {tex = "Analysing file...", per = 50 + (i / #dht.data)} )
 end
 
 local output = {}
@@ -94,4 +94,4 @@ print("Saving...")
 love.filesystem.write("raw_stats.bin", bitser.dumps(output))
 
 print("Done!")
-love.thread.getChannel( "channel" ):push( {tex = "Terminé!", bars = false, fadeout = true} )
+love.thread.getChannel( "channel" ):push( {tex = "Done!", bars = false, fadeout = true} )

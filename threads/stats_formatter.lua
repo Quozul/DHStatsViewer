@@ -110,27 +110,11 @@ for k,v in spairs(raw_stats) do
 
     for pos, name in spairs(a) do
         positions[name].pos = pos
-
-        -- avg_pos
-        --[[if not avg_pos[name] then
-            avg_pos[name] = {}
-            --avg_pos[name][pos] = total_days - positions[name].days + 1
-        end
-        if not avg_pos[name][pos] then avg_pos[name][pos] = 0 end
-        avg_pos[name][pos] = avg_pos[name][pos] + 1
-
-        local avg = 0
-        for pos, count in pairs(avg_pos[name]) do
-            avg = avg + pos * count
-        end
-
-        positions[name].avg_pos = avg / total]]
     end
 
     table.insert( stats, {date = k, total = total, highest = highest, positions = positions} )
 
     love.thread.getChannel( "info_channel" ):push({per = indexes[k] / total_days * 50})
-    --print(indexes[k] / total_days * 100 .. "%")
 end
 
 local success = love.filesystem.write("stats.bin", bitser.dumps(stats))

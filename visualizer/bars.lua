@@ -4,11 +4,11 @@ local stats, avatars, colors = {}, {}, {}
 require("libs/utils")
 
 local units = {
-    avg = "msgs/jours",
+    avg = "msgs/day",
     msg = "messages",
     total = "messages",
-    days = "jours",
-    close_avg = "msgs/jours",
+    days = "day",
+    close_avg = "msgs/day",
 }
 
 local max_width = 0
@@ -314,14 +314,6 @@ function bars:draw()
             local x = math.max(height + width * max_width - messages:getWidth() - 10, height + name_text:getWidth() + 10)
             love.graphics.draw(messages, x, y + round((height - messages:getHeight()) / 2))
         end
-
-        -- draw average position
-        --[[if avatars[name] then
-            love.graphics.setColor(1, 1, 1, .5)
-            love.graphics.draw(avatars[name], max_width, avg_pos_y, 0, height / 128, height / 128)
-        else
-            love.graphics.rectangle("fill", max_width, avg_pos_y, height, height)
-        end]]
     end
 
     -- draw progress bar
@@ -354,8 +346,8 @@ function bars:draw()
     local sign = ""
     if not dir then sign = "-" end
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print("Jour: " .. index .. " Fake index: " .. fake_index .. " " .. sign .. days_per_secs .. " jours/secondes", 0, 0)
-    love.graphics.print("Messages totaux: " .. stats[index].total .. " " .. round(stats[index].total / index) .. " messages/jours", 0, 15)
+    love.graphics.print("Day: " .. index.. " " .. sign .. days_per_secs .. " days/seconds", 0, 0)
+    love.graphics.print("Total messages: " .. stats[index].total .. " " .. round(stats[index].total / index) .. " messages/jours", 0, 15)
     love.graphics.print(love.timer.getFPS() .. " fps Scroll: " .. math.abs(scroll), 0, 30)
 
     date_str:set(stats[index].date)
