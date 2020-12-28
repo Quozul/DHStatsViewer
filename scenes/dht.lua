@@ -6,7 +6,7 @@ loading.init()
 local thread, channel, thread_avatars
 function dht:enter(previous)
     previous_gs = previous
-    thread = love.thread.newThread( "threads/node_app_runner.lua" )
+    thread = love.thread.newThread( "threads/dht_to_stats.lua" )
     thread_avatars = love.thread.newThread( "threads/avatar_from_dht.lua" )
     channel = love.thread.newChannel()
     loading.setvalue({tex = "Déposez votre historique de conversation", per = 0, bars = false})
