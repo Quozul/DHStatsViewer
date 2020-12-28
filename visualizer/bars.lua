@@ -46,6 +46,8 @@ local local_highest = false
 local global_highest = 0
 local previous_global_highest = 0
 
+local obfuscate = false
+
 function bars:enter(previous, s, a, c, v)
     stats, avatars, colors, value_to_see = s, a, c, v
     previous_gs = previous
@@ -186,6 +188,8 @@ function bars:keypressed(key, scancode, isrepeat)
             love.window.setFullscreen(not love.window.getFullscreen())
         elseif key == "l" then
             local_highest = not local_highest
+        elseif key == "o" then
+            obfuscate = not obfuscate
         end
     end
 end
@@ -290,16 +294,20 @@ function bars:draw()
             else
                 love.graphics.rectangle("fill", 0, y, height, height)
             end
-            love.graphics.print(user.pos, 0, y)
 
             -- draw name
+            if obfuscate then
+                name = name:byte()
+            end
             name_text:set(name)
+
             if brightness > 0.5 then
                 love.graphics.setColor(0, 0, 0)
             else
                 love.graphics.setColor(1, 1, 1)
             end
             love.graphics.draw(name_text, height + 5, y + round((height - name_text:getHeight()) / 2))
+            love.graphics.print(user.pos, 0, y)
 
             -- draw messages amount
             messages:set(msgs_amount .. " " .. units[value_to_see])
