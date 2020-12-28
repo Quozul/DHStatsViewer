@@ -243,7 +243,7 @@ function bars:draw()
         local width = per
         local y = pos * (height + height / 8) + bars_top
         local msgs_amount = value
-        local avg_pos = user.avg_pos
+        --local avg_pos = user.avg_pos
         --local avg_pos_y = avg_pos * (height + height / 8) + bars_top
 
         -- calculate animation
