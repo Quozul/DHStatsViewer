@@ -40,24 +40,28 @@ function stats_loader:update(dt)
 
         loading.setvalue({tex = "Loading avatars..."})
         print("Loading avatars...")
-        local total_avatars = table.length(names)
+        local total_avatars = #names
+
         -- load avatars
         for k,v in pairs(names) do
-            loading.setvalue({per = k / total_avatars * 100})
             local file_name = "avatars/" .. v .. ".png"
             if love.filesystem.getInfo(file_name) then
-                avatars[v] = love.graphics.newImage(file_name)
+                local imageData = love.image.newImageData(file_name)
+                
+                avatars[v] = love.graphics.newImage(imageData)
 
-                colors[v] = average_color(love.image.newImageData(file_name))
+                colors[v] = average_color(imageData)
             else
                 colors[v] = {love.math.random(), love.math.random(), love.math.random()}
             end
+
+            loading.setvalue({per = k / total_avatars * 50 + 50})
         end
 
-        loading.setvalue({tex = "Terminé!", fadeout = true, per = 100})
+        loading.setvalue({tex = "Terminé !", fadeout = true, per = 100})
     end
 
-    if stats and loading.alpha() <= 0 then
+    if stats and colors and avatars and loading.alpha() <= 0 then
         gamestate.switch(menu, stats, avatars, colors, value_to_see)
     end
 end
