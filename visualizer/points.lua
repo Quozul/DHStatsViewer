@@ -178,8 +178,6 @@ function points:mousepressed(mx, my, button)
         knob_selected = true
         play = false
     end
-
-    print(value_to_see)
 end
 
 function points:mousereleased(x, y, button)

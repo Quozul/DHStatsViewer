@@ -1,7 +1,6 @@
 local info_channel, done_channel, value_to_see = ...
 
 local bitser = require("libs/bitser")
-local json = require("libs/json")
 require("love.graphics")
 require("love.image")
 require("love.math")
@@ -139,6 +138,3 @@ local success = love.filesystem.write("stats.bin", bitser.dumps(stats))
 love.thread.getChannel( "done_channel" ):push({stats = stats, names = names})
 love.thread.getChannel( "info_channel" ):push({per = 1, fadeout = true})
 print("Done!")
-
--- write json
-local success = love.filesystem.write("stats.json", json:encode_pretty(stats))

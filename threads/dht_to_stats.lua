@@ -1,3 +1,4 @@
+-- https://github.com/rxi/json.lua
 local json = require("libs/json")
 local date = require("libs/date")
 local bitser = require("libs/bitser")
@@ -27,7 +28,7 @@ local content = file:read()
 
 love.thread.getChannel( "channel" ):push( {tex = "Décodage du fichier...", per = 37.5} )
 print("Decoding file...")
-local dht = json:decode(content)
+local dht = json.decode(content)
 
 love.thread.getChannel( "channel" ):push( {tex = "Analyse du fichier...", per = 50} )
 print("Analysing file...")
