@@ -12,10 +12,10 @@ local stats = {}
 
 local value_to_see = "avg"
 local value_to_see_descriptions = {
-    avg = "Moyenne de messages envoyés par jours",
-    msg = "Messages envoyés ce jour",
-    total = "Messages totaux envoyés",
-    days = "Jours de parole"
+    avg = "Average messages sent by day",
+    msg = "Messages sent this day",
+    total = "Total sent messages",
+    days = "Days talking"
 }
 
 local w, h
@@ -31,7 +31,7 @@ function menu:enter(previous, stats, avatars, colors, v)
         w = w / 2 - 20,
         h = h - 120,
         click = function() gamestate.switch(points, stats, avatars, colors, value_to_see) end,
-        text = "Courbes dynamiques",
+        text = "Dynamic curves",
         color = {0, 0, 255},
         hover_text = "",
         hover = false,
@@ -43,7 +43,7 @@ function menu:enter(previous, stats, avatars, colors, v)
         w = w / 2 - 20,
         h = h - 120,
         click = function() gamestate.switch(bars, stats, avatars, colors, value_to_see) end,
-        text = "Barres dynamiques",
+        text = "Dynamic bars",
         color = {0, 0, 255},
         hover_text = "",
         hover = false,
@@ -55,7 +55,7 @@ function menu:enter(previous, stats, avatars, colors, v)
         w = w - 20,
         h = 90,
         click = function() gamestate.switch(require("scenes.menu")) end,
-        text = "Menu principal",
+        text = "Main menu",
         color = {0, 0, 255},
         hover_text = "",
         hover = false,

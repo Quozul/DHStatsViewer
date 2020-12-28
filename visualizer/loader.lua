@@ -19,7 +19,7 @@ function stats_loader:enter(previous, v)
     value_to_see = v
     thread = love.thread.newThread( "threads/stats_formatter.lua" )
     info_channel, done_channel = love.thread.newChannel(), love.thread.newChannel()
-    loading.setvalue({tex = "Chargement des statistiques...", per = 0, alpha = 1})
+    loading.setvalue({tex = "Loading statistics...", per = 0, alpha = 1})
     thread:start(info_channel, done_channel, value_to_see)
 end
 
@@ -58,7 +58,7 @@ function stats_loader:update(dt)
             loading.setvalue({per = k / total_avatars * 50 + 50})
         end
 
-        loading.setvalue({tex = "Terminé !", fadeout = true, per = 100})
+        loading.setvalue({tex = "Done!", fadeout = true, per = 100})
     end
 
     if stats and colors and avatars and loading.alpha() <= 0 then

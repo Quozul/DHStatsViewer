@@ -2,7 +2,6 @@ local buttons = {}
 local menu = {}
 
 require("libs/utils")
-local package = require("scenes.package")
 local dht = require("scenes.dht")
 local vis_menu = require("visualizer.pre_menu")
 
@@ -12,29 +11,15 @@ local max_hover_time = 1
 
 function menu:enter(previous)
     local w, h = love.graphics.getDimensions()
-    --[[
-    buttons.add_discord_package = {
-        x = 10,
-        y = 10,
-        w = w / 2 - 20,
-        h = (h / 3) * 2 - 20,
-        click = function() gamestate.switch(package) end,
-        text = "Ajouter un package Discord (optionnel)",
-        color = {1, 0, 0},
-        hover_text = "Le package Discord peut être obtenu dans le menu \"Confidentialité & Sécurité\" des paramètres de Discord. Il va permettre de télécharger les avatar de vos amis.",
-        hover = false,
-        hover_time = 0
-    }
-    ]]
     buttons.add_discord_dht = {
         x = 10,
         y = 10,
         w = w / 2 - 20,
         h = (h / 3) * 2 - 20,
         click = function() gamestate.switch(dht) end,
-        text = "Ajouter historique de conversation",
+        text = "Add Discord History",
         color = {0, 0, 1},
-        hover_text = "Ajouter un historique de conversation.",
+        hover_text = "Add your DHT file.",
         hover = false,
         hover_time = 0
     }
@@ -44,9 +29,9 @@ function menu:enter(previous)
         w = w / 2 - 20,
         h = (h / 3) * 2 - 20,
         click = function() gamestate.switch(vis_menu) end,
-        text = "Lire les statistiques actuelles",
+        text = "Play loaded statistics",
         color = {0, 1, 0},
-        hover_text = "Lire les graphiques animés avec les statistiques déjà fournis.",
+        hover_text = "View the statistics with animated graphs.",
         hover = false,
         hover_time = 0
     }
@@ -69,11 +54,10 @@ function menu:enter(previous)
         h = h / 3 - 20,
         click = function()
             love.system.openURL("file://" .. love.filesystem.getSaveDirectory())
-            love.window.showMessageBox( "Instructions", "Le fichier comportant vos statistiques se nomme \"stats\" avec l'extention json.\nSi vous souhaitez le partager, copiez ce fichier.", "info", false )
         end,
-        text = "Partager",
+        text = "Open save folder/share",
         color = {1, 0, 0.5},
-        hover_text = "Ouvre l'emplacement du fichier des statistiques.",
+        hover_text = "Open the folder with the statitics file.",
         hover = false,
         hover_time = 0
     }
