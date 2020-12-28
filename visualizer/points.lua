@@ -49,7 +49,7 @@ local stats_len = 1
 function points:enter(previous, s, a, c, v)
     previous_gs = previous
     stats, avatars, colors, value_to_see = s, a, c, v
-    stats_len = table.length(stats)
+    stats_len = #stats
     value_to_see = v
 end
 
@@ -103,12 +103,12 @@ function points:keypressed(key, scancode, isrepeat)
         play = false
         fake_index = math.min(fake_index + 1, stats_len)
         cooldown = 1
-        index = math.min(math.max(index, 1), table.length(stats))
+        index = math.min(math.max(index, 1), #stats)
     elseif key == "left" then
         play = false
         fake_index = math.max(fake_index - 1, 1)
         cooldown = 1
-        index = math.min(math.max(index, 1), table.length(stats))
+        index = math.min(math.max(index, 1), #stats)
     elseif key == "kp+" then
         days_back = math.min(days_back + 1, 365)
         updateSize()

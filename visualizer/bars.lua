@@ -49,7 +49,7 @@ local previous_global_highest = 0
 function bars:enter(previous, s, a, c, v)
     stats, avatars, colors, value_to_see = s, a, c, v
     previous_gs = previous
-    stats_len = table.length(stats)
+    stats_len = #stats
     max_width = love.graphics.getWidth() - height
     max_height = love.graphics.getHeight() - 60
     window_width = love.graphics.getWidth()
