@@ -1,5 +1,6 @@
 local json = require("libs/json")
 local date = require("libs/date")
+local bitser = require("libs/bitser")
 
 local function spairs(t, order)
     local keys = {}
@@ -89,7 +90,7 @@ for day, value in spairs(output) do
 end
 
 print("Saving...")
-love.filesystem.write("all_stats.json", json:encode(output))
+love.filesystem.write("raw_stats.bin", bitser.dumps(output))
 
 print("Done!")
 love.thread.getChannel( "channel" ):push( {tex = "Terminé!", bars = false, fadeout = true} )

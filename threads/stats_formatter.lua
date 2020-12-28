@@ -1,6 +1,6 @@
 local info_channel, done_channel, value_to_see = ...
 
-local json = require("libs/json")
+local bitser = require("libs/bitser")
 require("love.graphics")
 require("love.image")
 require("love.math")
@@ -49,7 +49,7 @@ function average_color(imagedata)
     return {ar / s, ag / s, ab / s}
 end
 
-local raw_stats = json:decode(love.filesystem.read("all_stats.json"))
+local raw_stats = bitser.loads(love.filesystem.read("raw_stats.bin"))
 
 local names = {}
 local avg_pos = {}
@@ -119,11 +119,11 @@ for k,v in spairs(raw_stats) do
 
     table.insert( stats, {date = k, total = total, highest = highest, positions = positions} )
 
-    love.thread.getChannel( "info_channel" ):push({per = indexes[k] / total_days * 100})
+    love.thread.getChannel( "info_channel" ):push({per = indexes[k] / total_days * 50})
     --print(indexes[k] / total_days * 100 .. "%")
 end
 
-local success = love.filesystem.write("stats.json", json:encode(stats))
+local success = love.filesystem.write("stats.bin", bitser.dumps(stats))
 
 love.thread.getChannel( "done_channel" ):push({stats = stats, names = names})
 love.thread.getChannel( "info_channel" ):push({per = 1, fadeout = true})
