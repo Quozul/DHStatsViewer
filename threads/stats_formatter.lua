@@ -1,6 +1,7 @@
 local info_channel, done_channel, value_to_see = ...
 
 local bitser = require("libs/bitser")
+local json = require("libs/json")
 require("love.graphics")
 require("love.image")
 require("love.math")
@@ -56,6 +57,7 @@ local avg_pos = {}
 local stats, avatars, colors = {}, {}, {}
 local total_days = tablelength(raw_stats)
 local indexes, inversed_indexes = {}, {}
+local days = {}
 
 local i = 1
 for k in spairs(raw_stats) do
@@ -76,7 +78,13 @@ for k,v in spairs(raw_stats) do
     local positions = {}
     local total = 0
     for name, msg in spairs(v) do
-        positions[name] = {msg = 0, days = 1, total = msg}
+        if days[name] == nil then
+            days[name] = 0
+        end
+        days[name] = days[name] + 1
+
+        positions[name] = {msg = 0, days = days[name], total = msg}
+
         total = total + msg
 
         -- get total for list 5 days
@@ -98,11 +106,14 @@ for k,v in spairs(raw_stats) do
     -- add position
     local a = {}
     for name, value in spairs(positions, function(t,a,b) return t[b][value_to_see] < t[a][value_to_see] end) do -- change here for position
-        table.insert(a, name) end
-   for pos, name in spairs(a) do
+        table.insert(a, name)
+    end
+
+    for pos, name in spairs(a) do
         positions[name].pos = pos
 
-        if not avg_pos[name] then
+        -- avg_pos
+        --[[if not avg_pos[name] then
             avg_pos[name] = {}
             --avg_pos[name][pos] = total_days - positions[name].days + 1
         end
@@ -114,7 +125,7 @@ for k,v in spairs(raw_stats) do
             avg = avg + pos * count
         end
 
-        positions[name].avg_pos = avg / total
+        positions[name].avg_pos = avg / total]]
     end
 
     table.insert( stats, {date = k, total = total, highest = highest, positions = positions} )
@@ -128,3 +139,6 @@ local success = love.filesystem.write("stats.bin", bitser.dumps(stats))
 love.thread.getChannel( "done_channel" ):push({stats = stats, names = names})
 love.thread.getChannel( "info_channel" ):push({per = 1, fadeout = true})
 print("Done!")
+
+-- write json
+local success = love.filesystem.write("stats.json", json:encode_pretty(stats))
