@@ -8,8 +8,8 @@ love.filesystem.createDirectory("avatars")
 
 print("Downloading avatars in background...")
 
-local file = io.open(dht_file, "r")
-local content = io.open(dht_file, "r"):read()
+local file = io.open(dht_file, "rb")
+local content = file:read()
 local dht = json:decode(content)
 
 for user_id, user in pairs(dht.meta.users) do
@@ -34,3 +34,5 @@ for user_id, user in pairs(dht.meta.users) do
         end
     end
 end
+
+print("Done downloading avatars!")

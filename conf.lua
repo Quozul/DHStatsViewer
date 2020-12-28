@@ -1,7 +1,7 @@
 function love.conf(t)
     t.identity = "DiscordAnalitics"     -- The name of the save directory (string)
     t.appendidentity = false            -- Search files in source directory before save directory (boolean)
-    t.version = "11.2"                  -- The LÖVE version this game was made for (string)
+    t.version = "11.3"                  -- The LÖVE version this game was made for (string)
     t.console = true                    -- Attach a console (boolean, Windows only)
     t.accelerometerjoystick = true      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)
     t.externalstorage = false           -- True to save files (and read from the save directory) in external storage on Android (boolean) 
@@ -9,7 +9,7 @@ function love.conf(t)
  
     t.audio.mixwithsystem = true        -- Keep background music playing when opening LOVE (boolean, iOS and Android only)
  
-    t.window.title = "Discord stats manager" -- The window title (string)
+    t.window.title = "Discord stats viewer" -- The window title (string)
     t.window.icon = nil                 -- Filepath to an image to use as the window's icon (string)
     t.window.width = 1280               -- The window width (number)
     t.window.height = 720               -- The window height (number)

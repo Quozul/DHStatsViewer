@@ -18,11 +18,11 @@ print("Input file: " .. dht_file)
 
 love.thread.getChannel( "channel" ):push( {tex = "Ouverture du fichier...", per = 12.5} )
 print("Opening file...")
-local file = io.open(dht_file, "r")
+local file = io.open(dht_file, "rb")
 
 love.thread.getChannel( "channel" ):push( {tex = "Lecture du fichier...", per = 25} )
 print("Reading file...")
-local content = io.open(dht_file, "r"):read()
+local content = file:read()
 
 love.thread.getChannel( "channel" ):push( {tex = "Décodage du fichier...", per = 37.5} )
 print("Decoding file...")
