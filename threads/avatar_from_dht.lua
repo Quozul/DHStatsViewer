@@ -10,7 +10,7 @@ print("Downloading avatars in background...")
 
 local file = io.open(dht_file, "rb")
 local content = file:read()
-local dht = json:decode(content)
+local dht = json.decode(content)
 
 for user_id, user in pairs(dht.meta.users) do
     if user.avatar ~= nil then
@@ -25,7 +25,7 @@ for user_id, user in pairs(dht.meta.users) do
                 local success = love.filesystem.write("avatars/" .. user.name .. ".png", res)
 
                 if not success then
-                    print(code, json:encode(headers), status)
+                    print(code, json.encode(headers), status)
                 end
             elseif res == "" then
                 print("Error downloading avatar")

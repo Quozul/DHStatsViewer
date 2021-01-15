@@ -17,7 +17,7 @@ function dht:filedropped(file)
         local filename = file:getFilename()
         print("File dropped")
         thread:start( filename, channel )
-        --thread_avatars:start( filename )
+        thread_avatars:start( filename )
         loading.setvalue({bars = true})
     else
         print("Can't drop file, a file is already being analyzed")
