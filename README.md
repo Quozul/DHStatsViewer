@@ -11,7 +11,11 @@ A long time ago (in 2018), I wanted to see how much I use Discord, so I made thi
 3. Drag-drop your DHT file
 4. Once done, you can click on "Play loaded statistics" to view the graphs
 
-## Dependancies
+### Note on using the tracker
+DHT has been updated, this software requires the history to be in JSON format.  
+It is known to be compatible with the [browser only version](https://dht.chylex.com/browser-only/) as the new desktop version provides a binary file as output.
+
+## Dependencies
 * [brunoos/luasec](https://github.com/brunoos/luasec) — [compiled](https://love2d.org/forums/viewtopic.php?f=4&t=85389&start=10#p222288)
 
 ## Libraries
