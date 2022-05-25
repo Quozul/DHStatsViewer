@@ -39,6 +39,7 @@ local stats_len = 1
 
 local scroll = 0
 local desired_scroll = 0
+local scroll_grabbed = false
 
 local knob_selected = false
 
@@ -220,11 +221,14 @@ function bars:mousepressed(mx, my, button)
 
         knob_selected = true
         play = false
+    else
+        scroll_grabbed = true
     end
 end
 
 function bars:mousereleased(x, y, button)
     knob_selected = false
+    scroll_grabbed = false
 end
 
 function bars:mousemoved(x, y, dx, dy)
@@ -232,6 +236,10 @@ function bars:mousemoved(x, y, dx, dy)
         local px_d = stats_len / (window_width - 32)
 
         fake_index = math.min(math.max(fake_index + px_d * dx, 1), stats_len)
+    end
+
+    if scroll_grabbed then
+        desired_scroll = math.min(math.max(desired_scroll + dy / (height + height / 8), -table.length(stats[index].positions) + 1), 0)
     end
 end
 
