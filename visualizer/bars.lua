@@ -229,6 +229,8 @@ end
 function bars:mousereleased(x, y, button)
     knob_selected = false
     scroll_grabbed = false
+
+    desired_scroll = round(desired_scroll, 0)
 end
 
 function bars:mousemoved(x, y, dx, dy)
