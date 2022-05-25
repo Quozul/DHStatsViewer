@@ -39,21 +39,26 @@ local i = 0
 
 -- Count messages (per day)
 for channel_id, messages in pairs(dht.data) do
-    local channel_name = dht.meta.channels[channel_id].name
-    print("Channel: " .. channel_name)
-    
-    for message_id, message in pairs(messages) do
-        local x = date(message.t / 1000 + (3600 * 2)):fmt("%Y/%m/%d")
-        
-        if result[x] == nil then
-            result[x] = {}
-        end
+    local server_index = dht.meta.channels[channel_id].server + 1
+    local type = dht.meta.servers[server_index].type
 
-        if result[x][channel_name] == nil then
-            result[x][channel_name] = 0
-        end
+    if type == "DM" then
+        local channel_name = dht.meta.channels[channel_id].name
+        print("Channel: " .. channel_name .. ", type: " .. type)
 
-        result[x][channel_name] = result[x][channel_name] + 1
+        for message_id, message in pairs(messages) do
+            local x = date(message.t / 1000 + (3600 * 2)):fmt("%Y/%m/%d")
+
+            if result[x] == nil then
+                result[x] = {}
+            end
+
+            if result[x][channel_name] == nil then
+                result[x][channel_name] = 0
+            end
+
+            result[x][channel_name] = result[x][channel_name] + 1
+        end
     end
 
     i = i + 1
