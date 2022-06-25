@@ -45,7 +45,6 @@ local knob_selected = false
 
 local local_highest = false
 local global_highest = 0
-local previous_global_highest = 0
 
 local obfuscate = false
 
@@ -78,13 +77,14 @@ function bars:update(dt)
     index = round(fake_index)
 
     -- scroll smoothing
-    scroll = scroll + (desired_scroll - scroll) * (dt * 10)
+    if not scroll_grabbed then
+        scroll = scroll + (desired_scroll - scroll) * (dt * 10)
+    else
+        scroll = scroll + (desired_scroll - scroll)
+    end
     -- perform rounding
     if math.abs(desired_scroll - scroll) <= .01 then
         scroll = desired_scroll
-        if local_highest then
-            previous_global_highest = global_highest
-        end
     end
 
     if local_highest then

@@ -19,10 +19,10 @@ It is known to be compatible with the [browser only version](https://dht.chylex.
 * [brunoos/luasec](https://github.com/brunoos/luasec) — [compiled](https://love2d.org/forums/viewtopic.php?f=4&t=85389&start=10#p222288)
 
 ## Libraries
-* [gvx/bitser](https://github.com/gvx/bitser)
-* [Tieske/date](https://github.com/Tieske/date)
-* [vrld/gamestate](https://github.com/vrld/hump)
-* [rxi/json](https://github.com/rxi/json.lua)
+* [gvx/bitser](https://github.com/gvx/bitser) - Serializes and deserializes Lua values with LuaJIT
+* [Tieske/date](https://github.com/Tieske/date) - Date & Time module for Lua 5.x
+* [vrld/gamestate](https://github.com/vrld/hump) - Easy gamestate management
+* [rxi/json](https://github.com/rxi/json.lua) - A lightweight JSON library for Lua  
 
 ## Compiling
 Read [Game Distribution](https://love2d.org/wiki/Game_Distribution) page on Love2D.org
