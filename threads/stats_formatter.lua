@@ -96,7 +96,6 @@ for k,v in spairs(raw_stats) do
         -- set highest value
         local p = positions[name][value_to_see] -- change here for highest
         if highest < p then highest = p end
-        total = total + msg
 
         -- add username to table
         if not tablecontains(names, name) then table.insert(names, name) end
