@@ -88,7 +88,7 @@ function bars:update(dt)
     end
 
     if local_highest then
-        for name, user in spairs(stats[index].positions, function(t,a,b) return t[b][value_to_see] > t[a][value_to_see] end) do
+        for _, user in spairs(stats[index].positions, function(t,a,b) return t[b][value_to_see] > t[a][value_to_see] end) do
             if user.pos + desired_scroll == 1 then
                 global_highest = user[value_to_see]
                 break
@@ -230,7 +230,7 @@ function bars:mousereleased(x, y, button)
     knob_selected = false
     scroll_grabbed = false
 
-    desired_scroll = round(desired_scroll, 0)
+    desired_scroll = math.min(math.max(round(desired_scroll, 0), -table.length(stats[index].positions) + 1), 0)
 end
 
 function bars:mousemoved(x, y, dx, dy)
@@ -241,7 +241,7 @@ function bars:mousemoved(x, y, dx, dy)
     end
 
     if scroll_grabbed then
-        desired_scroll = math.min(math.max(desired_scroll + dy / (height + height / 8), -table.length(stats[index].positions) + 1), 0)
+        desired_scroll = desired_scroll + dy / (height + height / 8)
     end
 end
 
@@ -264,7 +264,7 @@ function bars:draw()
         if play and animate and stats[index - 1] ~= nil then
             local pre = stats[index - 1].positions[name]
             local pre_per = 0
-            
+
             if pre then
                 if (pre.pos + scroll) ~= pos then
                     local pre_y = (pre.pos + scroll) * (height + height / 8) + bars_top
@@ -278,14 +278,14 @@ function bars:draw()
                 --local pre_avg_pos_y = pre.avg_pos * (height + height / 8) + bars_top
                 --avg_pos_y = linear(cooldown, pre_avg_pos_y, avg_pos_y - pre_avg_pos_y, 1 / days_per_secs)
             end
-            
+
             width = linear(cooldown, pre_per, per - pre_per, 1 / days_per_secs)
         end
-        
+
         if y < max_height + height and bars_top < y then
             -- calculate brightness
             local brightness = 0.2126*colors[name][1] + 0.7152*colors[name][2] + 0.0722*colors[name][3]
-            
+
             -- draw background on hover
             if my > y and y + height > my and not knob_selected then
                 love.graphics.setColor(colors[name][1] * 1.5, colors[name][2] * 1.5, colors[name][3] * 1.5)
