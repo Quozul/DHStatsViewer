@@ -15,14 +15,14 @@ local dht = json.decode(content)
 for user_id, user in pairs(dht.meta.users) do
     if user.avatar ~= nil then
         local avatar_url = "https://cdn.discordapp.com/avatars/" .. user_id .. "/" .. user.avatar .. ".png"
-    
-        if not love.filesystem.getInfo("avatars/" .. user.name .. ".png") then
+        local file_name = "avatars/" .. user.name .. ".png"
 
+        if not love.filesystem.getInfo(file_name) then
             print("Downloading avatar of " .. user.name)
             local code, res, headers = https.request( avatar_url )
 
             if code == 200 then
-                local success = love.filesystem.write("avatars/" .. user.name .. ".png", res)
+                local success = love.filesystem.write(file_name, res)
 
                 if not success then
                     print(code, json.encode(headers))

@@ -113,7 +113,7 @@ for k,v in spairs(raw_stats) do
 
     table.insert( stats, {date = k, total = total, highest = highest, positions = positions} )
 
-    love.thread.getChannel( "info_channel" ):push({per = indexes[k] / total_days * 50})
+    love.thread.getChannel( "info_channel" ):push({per = indexes[k] / total_days * 100})
 end
 
 local success = love.filesystem.write("stats.bin", bitser.dumps(stats))

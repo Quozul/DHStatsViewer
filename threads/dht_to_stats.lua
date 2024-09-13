@@ -18,23 +18,27 @@ local dht_file, channel = ...
 
 print("Input file: " .. dht_file)
 
-love.thread.getChannel( "channel" ):push( {tex = "Opening file...", per = 12.5} )
+love.thread.getChannel( "channel" ):push( {tex = "Opening file...", per = 20} )
 print("Opening file...")
 local file = io.open(dht_file, "rb")
 
-love.thread.getChannel( "channel" ):push( {tex = "Reading file...", per = 25} )
+love.thread.getChannel( "channel" ):push( {tex = "Reading file...", per = 40} )
 print("Reading file...")
 local content = file:read()
 
-love.thread.getChannel( "channel" ):push( {tex = "Decoding file...", per = 37.5} )
+love.thread.getChannel( "channel" ):push( {tex = "Decoding file...", per = 60} )
 print("Decoding file...")
 local dht = json.decode(content)
 
-love.thread.getChannel( "channel" ):push( {tex = "Analysing file...", per = 50} )
+love.thread.getChannel( "channel" ):push( {tex = "Analysing file...", per = 80} )
 print("Analysing file...")
 
 local result = {}
 local i = 0
+local length = 0
+for k,v in pairs(dht.data) do
+    length = length + 1
+end
 
 
 -- Count messages (per day)
@@ -62,7 +66,7 @@ for channel_id, messages in pairs(dht.data) do
     end
 
     i = i + 1
-    love.thread.getChannel( "channel" ):push( {tex = "Analysing file...", per = 50 + (i / #dht.data)} )
+    love.thread.getChannel( "channel" ):push( {tex = "Analysing file...", per = 80 + i / length * 20} )
 end
 
 local output = {}
