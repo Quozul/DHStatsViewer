@@ -1,7 +1,7 @@
 # DHStatsViewer
 
 ## What is it?
-A long time ago (in 2018), I wanted to see how much I use Discord, so I made this.
+A long time ago (around 2018), I wanted to see how much I use Discord, so I made this.
 
 ## Usage
 [Love2d](love2d.org) is required to run this. Simply install it and run `love .`
@@ -16,7 +16,7 @@ DHT has been updated, this software requires the history to be in JSON format.
 It is known to be compatible with the [browser only version](https://dht.chylex.com/browser-only/) as the new desktop version provides a binary file as output.
 
 ## Dependencies
-* [brunoos/luasec](https://github.com/brunoos/luasec) — [compiled](https://love2d.org/forums/viewtopic.php?f=4&t=85389&start=10#p222288)
+This program utilizes the Lua HTTPS library ([lua-https](https://www.love2d.org/wiki/lua-https)) bundled into Löve2D. Since it's not yet officially released, users of Löve2D versions below 12.0 must compile the module themselves; refer to [the wiki](https://www.love2d.org/wiki/lua-https) for detailed instructions.
 
 ## Libraries
 * [gvx/bitser](https://github.com/gvx/bitser) - Serializes and deserializes Lua values with LuaJIT

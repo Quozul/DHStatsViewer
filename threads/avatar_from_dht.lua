@@ -1,6 +1,6 @@
 local json = require("libs/json")
--- https://love2d.org/forums/viewtopic.php?f=4&t=85389&start=10#p222288
-local https = require("ssl.https")
+-- https://www.love2d.org/wiki/lua-https
+local https = require("https")
 
 local dht_file = ...
 
@@ -19,16 +19,16 @@ for user_id, user in pairs(dht.meta.users) do
         if not love.filesystem.getInfo("avatars/" .. user.name .. ".png") then
 
             print("Downloading avatar of " .. user.name)
-            local res, code, headers, status = https.request( avatar_url )
-            
-            if res ~= "" then
+            local code, res, headers = https.request( avatar_url )
+
+            if code == 200 then
                 local success = love.filesystem.write("avatars/" .. user.name .. ".png", res)
 
                 if not success then
-                    print(code, json.encode(headers), status)
+                    print(code, json.encode(headers))
                 end
-            elseif res == "" then
-                print("Error downloading avatar")
+            else
+                print("Error downloading avatar", user_id, user.avatar)
             end
 
         end
